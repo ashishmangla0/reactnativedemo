@@ -9,6 +9,7 @@ import type { PropsWithChildren } from 'react';
 import React, { useState } from 'react';
 import {
   Button,
+  FlatList,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -23,34 +24,44 @@ function App(): JSX.Element {
   const [enterGoalText, setEnterGoalText] = useState('');
   const [courseGoals, setCourseGoals] = useState([]);
   const goalInputHandler = (enteredText: React.SetStateAction<string>) => {
-    setEnterGoalText(enteredText );
+    setEnterGoalText(enteredText);
   }
 
   const addGoalHandler = () => {
 
     setCourseGoals([...courseGoals, enterGoalText]);
-    setEnterGoalText('');
+    // setEnterGoalText('');
   }
 
 
+  // const renderItem = (item) => {
+  
 
+  //   return (
+  //     <Text  style={styles.listItem}>{item}</Text>
+  //   );
+  // };
   return (
     <SafeAreaView>
-      <ScrollView>
-        <View style={styles.appContainer}>
-          <View style={styles.inputContainer}>
-            <TextInput placeholder="Your cource goal !" style={styles.textInput} onChangeText={goalInputHandler} value={enterGoalText} />
-            <Button title="Add Goal" onPress={addGoalHandler} />
-          </View>
-          <View style={styles.goalsContainer}>
-            <Text>List of goals...</Text>
 
-            {courseGoals?.map((item, index) => <Text key={index} style={styles.listItem}>{item}</Text>)}
-          </View>
-
+      <View style={styles.appContainer}>
+        <View style={styles.inputContainer}>
+          <TextInput placeholder="Your cource goal !" style={styles.textInput} onChangeText={goalInputHandler} value={enterGoalText} />
+          <Button title="Add Goal" onPress={addGoalHandler} />
         </View>
-      </ScrollView>
-
+        <View style={styles.goalsContainer}>
+          <Text>List of goals...</Text>
+          <FlatList data={courseGoals} renderItem={(itemData) =>{
+            itemData.index
+            return(
+              <View>
+                <Text style={styles.listItem}>{itemData.item}</Text>
+              </View>
+            )
+          }} />
+          
+        </View>
+      </View>
     </SafeAreaView>
   );
 }
