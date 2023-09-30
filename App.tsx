@@ -10,6 +10,7 @@ import React, { useState } from 'react';
 import {
   Button,
   SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -20,32 +21,36 @@ import {
 
 function App(): JSX.Element {
   const [enterGoalText, setEnterGoalText] = useState('');
-  const [courseGoals,setCourseGoals] = useState([]);
+  const [courseGoals, setCourseGoals] = useState([]);
   const goalInputHandler = (enteredText: React.SetStateAction<string>) => {
-    setEnterGoalText(enteredText);
+    setEnterGoalText(enteredText );
   }
 
   const addGoalHandler = () => {
-    
-    setCourseGoals([...courseGoals,enterGoalText]);
+
+    setCourseGoals([...courseGoals, enterGoalText]);
+    setEnterGoalText('');
   }
 
 
 
   return (
     <SafeAreaView>
-      <View style={styles.appContainer}>
-        <View style={styles.inputContainer}>
-          <TextInput placeholder="Your cource goal !" style={styles.textInput} onChangeText={goalInputHandler} />
-          <Button title="Add Goal" onPress={addGoalHandler} />
-        </View>
-        <View style={styles.goalsContainer}>
-          <Text>List of goals...</Text>
-         
-          {courseGoals?.map((item,index)=><Text key={index} style={styles.listItem}>{item}</Text>)}
-        </View>
+      <ScrollView>
+        <View style={styles.appContainer}>
+          <View style={styles.inputContainer}>
+            <TextInput placeholder="Your cource goal !" style={styles.textInput} onChangeText={goalInputHandler} value={enterGoalText} />
+            <Button title="Add Goal" onPress={addGoalHandler} />
+          </View>
+          <View style={styles.goalsContainer}>
+            <Text>List of goals...</Text>
 
-      </View>
+            {courseGoals?.map((item, index) => <Text key={index} style={styles.listItem}>{item}</Text>)}
+          </View>
+
+        </View>
+      </ScrollView>
+
     </SafeAreaView>
   );
 }
@@ -75,8 +80,11 @@ const styles = StyleSheet.create({
   goalsContainer: {
     // flex:3
   },
-  listItem:{
-    marginBottom: 10
+  listItem: {
+    marginBottom: 10,
+    padding: 10,
+    backgroundColor: '#5e5e5e'
+
   }
 })
 
