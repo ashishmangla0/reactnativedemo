@@ -17,6 +17,7 @@ import {
   TextInput,
   View
 } from 'react-native';
+import GoalItem from './components/GoalItem';
 
 
 
@@ -29,7 +30,7 @@ function App(): JSX.Element {
 
   const addGoalHandler = () => {
 
-    setCourseGoals([...courseGoals, enterGoalText]);
+    setCourseGoals([...courseGoals,{text:enterGoalText}]);
     // setEnterGoalText('');
   }
 
@@ -51,12 +52,16 @@ function App(): JSX.Element {
         </View>
         <View style={styles.goalsContainer}>
           <Text>List of goals...</Text>
-          <FlatList data={courseGoals} renderItem={(itemData) =>{
+          <FlatList
+          // keyExtractor={(item,index) =>{
+          //   return 
+          // }} 
+            alwaysBounceVertical 
+            data={courseGoals} 
+            renderItem={(itemData) =>{
             itemData.index
             return(
-              <View>
-                <Text style={styles.listItem}>{itemData.item}</Text>
-              </View>
+             <GoalItem text={itemData?.item?.text}/>
             )
           }} />
           
