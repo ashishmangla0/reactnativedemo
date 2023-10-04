@@ -5,18 +5,15 @@
  * @format
  */
 
-import type { PropsWithChildren } from 'react';
 import React, { useState } from 'react';
 import {
-  Button,
   FlatList,
   SafeAreaView,
-  ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   View
 } from 'react-native';
+import GoalInput from './components/GoalInput';
 import GoalItem from './components/GoalItem';
 
 
@@ -46,10 +43,7 @@ function App(): JSX.Element {
     <SafeAreaView>
 
       <View style={styles.appContainer}>
-        <View style={styles.inputContainer}>
-          <TextInput placeholder="Your cource goal !" style={styles.textInput} onChangeText={goalInputHandler} value={enterGoalText} />
-          <Button title="Add Goal" onPress={addGoalHandler} />
-        </View>
+        <GoalInput onAddGoal={addGoalHandler} goalInputHandler={goalInputHandler} enterGoalText={enterGoalText} />
         <View style={styles.goalsContainer}>
           <Text>List of goals...</Text>
           <FlatList
